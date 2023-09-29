@@ -612,7 +612,7 @@ else:
                                     os.system(
                                         'echo serverJar=vanilla.jar > fabric-server-launcher.properties')
                                     print(
-                                        "Changed fabric-server-launcher jar to renamed vanilla.jar")
+                                        "Changed fabric-server-launcher to renamed vanilla.jar")
                                 except:
                                     pass
 
@@ -679,7 +679,7 @@ for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "forge*.
         has_forge_jar = True
 if not has_forge_jar:
     for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "*.jar"):
-        if 'minecraft' not in name and 'fabric' not in name:
+        if 'minecraft' not in name and 'fabric' not in name and 'vanilla' not in name:
             print("Renaming", name, "to server.jar")
             os.chdir(f"{this_dir}/{folder_name}")
             os.rename(name, "server.jar")
