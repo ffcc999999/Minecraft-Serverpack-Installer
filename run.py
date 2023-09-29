@@ -654,10 +654,10 @@ for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "overrid
 # If set to true, script will delete provided server startup script (.sh for linux and .bat or .ps1 for Windows).
 if clean_startup_script:
     print("Clean startup scripts enabled.")
-    for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "*.sh"):
-        if name:
-            print("Removing", name)
-            os.remove(name)
+    # for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "*.sh"):
+    #     if name:
+    #         print("Removing", name)
+    #         os.remove(name)
     for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + "*.bat"):
         if name:
             print("Removing", name)
