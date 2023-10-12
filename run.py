@@ -777,44 +777,6 @@ if mode == "pterodactyl":
             move(join(this_dir, folder_name, f),
                  join(this_dir, "modpack_folder", f))
     delete_directory(join(this_dir, folder_name))
-    try:
-        # custom download loader
-        if os.path.exists("variables.txt"):
-            variables = {}
-            with open("variables.txt", "r") as file:
-                for line in file:
-                    key, value = line.strip().split("=")
-                    variables[key] = value
-            
-            try:
-                MINECRAFT_VERSION = variables["MINECRAFT_VERSION"]
-                MODLOADER_VERSION = variables["MODLOADER_VERSION"]
-                FABRIC_INSTALLER_VERSION = variables["FABRIC_INSTALLER_VERSION"]
-                MODLOADER = variables["MODLOADER"]
-                
-                # Проверка, что MODLOADER равен "Fabric"
-                if MODLOADER == "Fabric":
-                    fabric_url = f"https://meta.fabricmc.net/v2/versions/loader/{MINECRAFT_VERSION}/{MODLOADER_VERSION}/{FABRIC_INSTALLER_VERSION}/server/jar"
-                    response = requests.get(fabric_url)
-                
-                    if response.status_code == 200:
-                        # os.remove("fabric-server-launch.jar")
-                        with open("fabric-server-launch.jar", "wb") as file:
-                            file.write(response.content)
-                        print("File downloaded as fabric-server-launch.jar")
-                    else:
-                        print(f"Failed to download file: {response.status_code}")
-                else:
-                    print("MODLOADER is not Fabric. Doing nothing.")
-            except KeyError as e:
-                print(f"Missing variable: {e}")
-        else:
-            print("variables.txt not found. Doing nothing.")
-        move("fabric-server-launch.jar", "server.jar")
-        renamed_serverjar = True
-        print("Renamed fabric-server-launch.jar to server.jar")
-    except Exception as e:
-        print(f"An error occurred: {str(e)}")
     # Done in egg install script instead.
     # os.system("rsync -a /mnt/server/modpack_folder/ /mnt/server/")
     # os.system("rm -rf /mnt/server/modpack_folder/*")
