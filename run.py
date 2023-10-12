@@ -582,6 +582,8 @@ else:
                         # ! Will manually have to be changed as there is no hosted link to always get the latest fabric loader
                         fabric_installer_url = 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.2/fabric-installer-0.11.2.jar'
                         os.chdir(f"{this_dir}/{folder_name}")
+                        print(
+                                    "Download fabric_installer_url")
                         filename = download(fabric_installer_url)
                         for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + filename):
                             print(name)
