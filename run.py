@@ -583,38 +583,38 @@ else:
                         fabric_installer_url = 'https://maven.fabricmc.net/net/fabricmc/fabric-installer/0.11.2/fabric-installer-0.11.2.jar'
                         os.chdir(f"{this_dir}/{folder_name}")
                         filename = download(fabric_installer_url)
-                        for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + filename):
-                            print(name)
-                            if name:
-                                print(
-                                    "Changing Directory to not-included fabric installer")
-                                os.chdir(f"{this_dir}/{folder_name}")
-                                print(
-                                    "Running Fabric Loader. This may take a minute or two...")
-                                os.system(
-                                    f'java -jar "{name}" server -mcversion {modpack_jar_version} -downloadMinecraft')
-                                print("Finished running Fabric Loader")
-                                os.remove(name)
-                                print("Removed Fabric Loader jar")
-                                try:
-                                    move("server.jar", "vanilla.jar")
-                                    print("Renamed server.jar to vanilla.jar")
-                                except:
-                                    pass
-                                try:
-                                    move("fabric-server-launch.jar", "server.jar")
-                                    renamed_serverjar = True
-                                    print(
-                                        "Renamed fabric-server-launch.jar to server.jar")
-                                except:
-                                    pass
-                                try:
-                                    os.system(
-                                        'echo serverJar=vanilla.jar > fabric-server-launcher.properties')
-                                    print(
-                                        "Changed fabric-server-launcher to renamed vanilla.jar")
-                                except:
-                                    pass
+                        # for name in glob.glob(glob.escape(this_dir + "/" + folder_name + "/") + filename):
+                        #     print(name)
+                        #     if name:
+                        #         print(
+                        #             "Changing Directory to not-included fabric installer")
+                        #         os.chdir(f"{this_dir}/{folder_name}")
+                        #         print(
+                        #             "Running Fabric Loader. This may take a minute or two...")
+                        #         os.system(
+                        #             f'java -jar "{name}" server -mcversion {modpack_jar_version} -downloadMinecraft')
+                        #         print("Finished running Fabric Loader")
+                        #         os.remove(name)
+                        #         print("Removed Fabric Loader jar")
+                        #         try:
+                        #             move("server.jar", "vanilla.jar")
+                        #             print("Renamed server.jar to vanilla.jar")
+                        #         except:
+                        #             pass
+                        #         try:
+                        #             move("fabric-server-launch.jar", "server.jar")
+                        #             renamed_serverjar = True
+                        #             print(
+                        #                 "Renamed fabric-server-launch.jar to server.jar")
+                        #         except:
+                        #             pass
+                        #         try:
+                        #             os.system(
+                        #                 'echo serverJar=vanilla.jar > fabric-server-launcher.properties')
+                        #             print(
+                        #                 "Changed fabric-server-launcher to renamed vanilla.jar")
+                        #         except:
+                        #             pass
 
 # Garbage files cleanup
 print("Running garbage cleanup...")
