@@ -798,7 +798,7 @@ if mode == "pterodactyl":
                     response = requests.get(fabric_url)
                 
                     if response.status_code == 200:
-                        os.remove("fabric-server-launch.jar")
+                        # os.remove("fabric-server-launch.jar")
                         with open("fabric-server-launch.jar", "wb") as file:
                             file.write(response.content)
                         print("File downloaded as fabric-server-launch.jar")
