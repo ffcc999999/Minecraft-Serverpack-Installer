@@ -33,7 +33,7 @@ def get_forge_or_fabric_version_from_manifest(path):
                         return "forge", minecraft_version + "-" + modloader["id"][6:]
 
         # Если структура не распознана
-        print("Ошибка: Структура манифеста не поддерживается.")
+        print("Error: Manifest structure is not supported.")
         return None, None
 
 # Пример использования:
