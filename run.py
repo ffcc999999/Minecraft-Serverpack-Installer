@@ -380,6 +380,35 @@ else:
                 print("Changed fabric-server-launcher jar to downloaded vanilla.jar")
             except:
                 pass
+      # FTBInstall.sh code here
+      ftb_install_sh = os.path.join(this_dir, folder_name, "FTBInstall.sh")
+      if os.path.isfile(ftb_install_sh):
+          print("Detected FTBInstall.sh in modpack folder. Replacing S3 links and running it...")
+          # Читаем файл
+          with open(ftb_install_sh, "r", encoding="utf-8") as f:
+              content = f.read()
+          # Заменяем ссылки
+          content = content.replace(
+              "https://s3.amazonaws.com/Minecraft.Download/versions/${MCVER}/${JARFILE}",
+              "https://joinserver.xyz/mirror/data/vanilla/${MCVER}"
+          )
+          content = content.replace(
+              "https://s3.amazonaws.com/Minecraft.Download/versions/${MCVER}/minecraft_server.${MCVER}.jar",
+              "https://joinserver.xyz/mirror/data/vanilla/${MCVER}"
+          )
+          # Перезаписываем
+          with open(ftb_install_sh, "w", encoding="utf-8") as f:
+              f.write(content)
+
+          # Делаем исполняемым на Linux/MacOS
+          if operating_system in ["Linux", "Darwin", "Mac OS"]:
+              os.system(f"chmod +x {ftb_install_sh}")
+
+          # Запускаем FTBInstall.sh
+          print("Running FTBInstall.sh script, please wait...")
+          ftb_process = subprocess.Popen(ftb_install_sh, shell=True)
+          ftb_process.wait()
+          print("Finished FTBInstall.sh script.")
 
         # Check if serverstarter installer exists in serverpack dir. If does, run it.
         serverstarter_installer = False
@@ -422,6 +451,7 @@ else:
                     print("Terminated serverstarter installer")
                     print("Deleting leftover serverstarter installer file")
                     os.remove(file)
+                    
 
         if serverstarter_fabric:
             try:
