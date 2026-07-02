@@ -29,7 +29,7 @@ def download_modrinth_mods(path):
                             f"Detected optional server mod {mod_filename}. Skipping download.")
                         continue
             if mod['downloads']:
-                download(mod['downloads'][0], filename=mod_filename)
+                download(mod['downloads'][0])
 
         sleep(1)
         print("Finished downloading all server mods for modrinth modpack.")
