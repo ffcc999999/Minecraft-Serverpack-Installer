@@ -1,7 +1,12 @@
 import sys
+from urllib.parse import urlparse
+
 import requests
 from tqdm import tqdm
 import wget
+
+
+KNOWN_DOWNLOAD_EXTENSIONS = (".zip", ".mrpack", ".properties", ".txt", ".jar")
 
 
 def bar_progress(current, total, width=80):
@@ -24,6 +29,19 @@ def download_wget(url):
     return download_filename
 
 
+def get_download_file_name(url, filename=None):
+    if filename:
+        file_name = filename
+    else:
+        file_name_start_pos = urlparse(url).path.rfind("/") + 1
+        file_name = urlparse(url).path[file_name_start_pos:]
+
+    if not file_name.lower().endswith(KNOWN_DOWNLOAD_EXTENSIONS):
+        file_name = file_name + ".zip"
+
+    return file_name
+
+
 def download(url, **kwargs):
 
     print("Downloading from:", url)
@@ -32,14 +50,7 @@ def download(url, **kwargs):
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36',
     }
 
-    try:
-        file_name = kwargs['filename']
-    except:
-        file_name_start_pos = url.rfind("/") + 1
-        file_name = url[file_name_start_pos:]
-
-    if ".zip" not in file_name and ".mrpack" not in file_name and '.properties' not in file_name and '.txt' not in file_name and '.jar' not in file_name:
-    file_name = file_name + ".zip"
+    file_name = get_download_file_name(url, kwargs.get('filename'))
 
     r = requests.get(url, stream=True, allow_redirects=True,
                      headers=HEADERS, timeout=60)
