@@ -38,8 +38,8 @@ def download(url, **kwargs):
         file_name_start_pos = url.rfind("/") + 1
         file_name = url[file_name_start_pos:]
 
-    if ".zip" not in file_name and ".mrpack" not in file_name and '.properties' not in file_name and '.txt' not in file_name:
-        file_name = file_name + ".zip"
+    if ".zip" not in file_name and ".mrpack" not in file_name and '.properties' not in file_name and '.txt' not in file_name and '.jar' not in file_name:
+    file_name = file_name + ".zip"
 
     r = requests.get(url, stream=True, allow_redirects=True,
                      headers=HEADERS, timeout=60)
